@@ -27,7 +27,7 @@ class Book < ApplicationRecord
 
   # Methods
   def borrowed_copies
-    total_copies - available_copies
+    Borrowing.where(book_id: id).count
   end
 
   def available?
@@ -125,8 +125,8 @@ class Book < ApplicationRecord
   def available_copies_cannot_exceed_total
     return if available_copies.blank? || total_copies.blank?
 
-    if available_copies > total_copies
-      errors.add(:available_copies, "cannot exceed total copies")
+    if total_copies < borrowed_copies
+      errors.add(:available_copies, "Total copies cannot be less than Borrowed Copies")
     end
   end
 
@@ -144,8 +144,6 @@ class Book < ApplicationRecord
   end
 
   def set_default_available_copies
-    if available_copies.nil? && total_copies.present?
-      self.available_copies = total_copies
-    end
+    self.available_copies = total_copies - borrowed_copies
   end
 end

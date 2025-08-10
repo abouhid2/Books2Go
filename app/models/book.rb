@@ -27,7 +27,7 @@ class Book < ApplicationRecord
 
   # Methods
   def borrowed_copies
-    Borrowing.where(book_id: id).count
+    Borrowing.where(book_id: id, returned_at: nil).count
   end
 
   def available?

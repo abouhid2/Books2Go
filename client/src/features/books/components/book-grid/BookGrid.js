@@ -4,8 +4,8 @@ import BookCard from "./BookCard";
 import Pagination from "./Pagination";
 import EmptyState from "./EmptyState";
 import SortControl from "../../../../components/SortControl";
-import useBookFilter from "./useBookFilter";
-import usePagination from "./usePagination";
+import useBookFilter from "../../hooks/useBookFilter";
+import usePagination from "../../hooks/usePagination";
 import useSorting from "../../hooks/useSorting";
 
 const BookGrid = ({
@@ -101,10 +101,6 @@ const BookGrid = ({
     setEditingBookId(null);
   };
 
-  if (filteredBooks.length === 0) {
-    return <EmptyState filter={filter} isLibrarian={isLibrarian} />;
-  }
-
   return (
     <div className="space-y-4">
       {/* Filter and Sort Controls */}
@@ -125,8 +121,10 @@ const BookGrid = ({
           sortOptions={sortOptions}
         />
       </div>
-
       {/* Book Grid */}
+      {currentBooks.length === 0 && (
+        <EmptyState filter={filter} isLibrarian={isLibrarian} />
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
         {currentBooks.map((book) => {
           const isBorrowed = isBookBorrowed(book.id);

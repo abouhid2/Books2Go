@@ -6,7 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 const Login = ({ onLogin, initialError, onClearError }) => {
   const [mode, setMode] = useState("login"); // "login" or "register"
 
-  const { loading, error, login, register, clearError } = useAuth();
+  const { loading, error, login, register, clearError, setError } = useAuth();
 
   const handleModeChange = (newMode) => {
     setMode(newMode);
@@ -54,6 +54,7 @@ const Login = ({ onLogin, initialError, onClearError }) => {
           onSubmit={handleSubmit}
           loading={loading}
           error={error}
+          setError={setError}
           initialError={initialError}
           onClearError={onClearError}
         />

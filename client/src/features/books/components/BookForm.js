@@ -36,6 +36,7 @@ const BookForm = ({
             fieldErrors={fieldErrors}
             handleInputChange={handleInputChange}
             isInline={true}
+            editingBook={editingBook}
           />
 
           <ImageUpload

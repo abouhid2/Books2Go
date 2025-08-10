@@ -6,8 +6,12 @@ const BookFormFields = ({
   fieldErrors,
   handleInputChange,
   isInline = false,
+  editingBook,
 }) => {
   const gridCols = isInline ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2";
+  const minTotalCopies = editingBook
+    ? editingBook?.total_copies - editingBook?.available_copies || 0
+    : 0;
 
   return (
     <div className={`grid ${gridCols} gap-4`}>
@@ -54,7 +58,7 @@ const BookFormFields = ({
         value={formData.total_copies}
         onChange={handleInputChange}
         required
-        min="0"
+        min={minTotalCopies}
         error={fieldErrors.total_copies}
       />
     </div>

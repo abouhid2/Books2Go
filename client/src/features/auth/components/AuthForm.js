@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const AuthForm = ({
   mode,
   onSubmit,
-  onCancel,
+  setError,
   loading,
   error,
   initialError,
@@ -56,10 +56,10 @@ const AuthForm = ({
 
     const validationError = validateForm();
     if (validationError) {
-      if (onClearError) {
-        onClearError();
-      }
+      setError(validationError);
       return;
+    } else {
+      onClearError();
     }
 
     const userData = {

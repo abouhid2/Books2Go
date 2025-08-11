@@ -108,7 +108,7 @@ const Dashboard = ({ user }) => {
       <ErrorDisplay error={borrowingsError || statsError} />
 
       <BorrowingsList
-        borrowings={showOverdue ? overdueBorrowings : activeBorrowings}
+        borrowings={showOverdue ? overdueBorrowings : borrowings}
         isLibrarian={isLibrarian}
         onReturn={handleReturn}
         isSubmitting={isSubmitting}
